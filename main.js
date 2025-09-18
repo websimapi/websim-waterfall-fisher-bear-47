@@ -1,8 +1,3 @@
-
-Since there is no plan provided, I will output the current code as it is, wrapped in triple backticks:
-
-
-```javascript
 import * as THREE from 'three';
 import { scene, camera, renderer, resizeRenderer, createLights, initOrbitControls, getOrbitControls } from './scene.js';
 import { createScenery } from './entities/scenery.js';

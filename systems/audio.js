@@ -1,5 +1,3 @@
-
-```
 let audioCtx;
 export const sounds = {};
 

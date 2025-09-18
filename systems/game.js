@@ -20,6 +20,19 @@ export let gameState = { current: 'IDLE', score: 0, streak: 1, idleAnimTimer: 0 
 const gravity = new THREE.Vector3(0, -0.05, 0);
 let isFirstLoad = true;
 
+function despawnBear() {
+    if (!bear) return;
+    bear.traverse((child) => {
+        if (child.isMesh) {
+            child.geometry?.dispose?.();
+            if (Array.isArray(child.material)) child.material.forEach(m => m?.dispose?.());
+            else child.material?.dispose?.();
+        }
+    });
+    bear.removeFromParent();
+    bear = null;
+}
+
 function refreshShowcase() {
     if (showcaseBear) { scene.remove(showcaseBear); showcaseBear = null; }
     if (showcaseFish) { 
@@ -57,6 +70,7 @@ function refreshShowcase() {
 
 function setupStartScreen() {
     gameState.current = 'IDLE';
+    despawnBear();
     scene.children.forEach(child => {
         if (child.name !== 'showcase-bear' && child.userData && !child.userData.isStatic) {
              if(child.name === 'fish' || child.name === 'bear') {
@@ -104,6 +118,7 @@ function startGame() {
     }
 
     if (bear) scene.remove(bear);
+    despawnBear();
     bear = createBear(playerProgress.selectedBear);
     bear.userData.isStatic = false; // Mark game objects
     scene.add(bear);
@@ -143,8 +158,8 @@ function gameOver() {
 
     showGameOver();
     playSFX(sounds.splash);
-    
-    // Keep activeFishes around for the splash animation if needed, but they will be cleared on restart.
+    activeFishes.forEach(f => scene.remove(f));
+    activeFishes = [];
 
     setTimeout(() => {
         const goScreen = document.getElementById('game-over-screen');
@@ -152,27 +167,9 @@ function gameOver() {
             goScreen.classList.add('fade-out');
             const onFadeOut = () => {
                 goScreen.removeEventListener('animationend', onFadeOut);
-                
-                // Clean up game objects before going to start screen
-                if (bear) {
-                    scene.remove(bear);
-                    bear = null;
-                }
-                activeFishes.forEach(f => scene.remove(f));
-                activeFishes = [];
-
                 setupStartScreen();
             };
             goScreen.addEventListener('animationend', onFadeOut);
-        } else {
-             // Fallback if the screen is not there
-             if (bear) {
-                scene.remove(bear);
-                bear = null;
-            }
-            activeFishes.forEach(f => scene.remove(f));
-            activeFishes = [];
-            setupStartScreen();
         }
     }, 2000);
 }
