@@ -1,3 +1,5 @@
+
+```javascript
 import * as THREE from 'three';
 
 const darkBrownMat = new THREE.MeshLambertMaterial({ color: 0x4a2d1e });
@@ -155,7 +157,7 @@ export function createScenery() {
     // Add rock walls underneath the grass shelves to connect them to the mountains
     const groundWallHeight = 22; // Match river bank wall height for consistency
     const groundWallY = (groundY - groundThickness / 2) - (groundWallHeight / 2); // Position it right under the grass
-    
+
     const groundWallL = createVoxel(-7, groundWallY, -8, 6, groundWallHeight, 24, rockMat);
     const groundWallR = createVoxel(7, groundWallY, -8, 6, groundWallHeight, 24, rockMat);
     group.add(groundWallL, groundWallR);
@@ -185,7 +187,7 @@ export function createScenery() {
     }
 
     for (let i=0;i<12;i++){ const z=-26-Math.random()*24, x=(Math.random()<0.5?-12:12)+(Math.random()*4-2), w=4+Math.random()*6, h=1.5+Math.random()*2.5, d=5+Math.random()*8; group.add(createVoxel(x, 1.2-Math.random()*1.5, z, w, h, d, rockMat)); }
-    
+
     // --- Distant Terrain Generation ---
     const distantTerrainGroup = new THREE.Group();
     const terrainColors = [
@@ -242,7 +244,7 @@ export function createScenery() {
         const peakChunk = createVoxel(x, y, z, w, h, d, mat);
         distantTerrainGroup.add(peakChunk);
     }
-    
+
     // Add expansive grassy terrain on top of mountains
     for (let i = 0; i < 120; i++) {
         const side = Math.random() < 0.5 ? -1 : 1;
@@ -252,7 +254,7 @@ export function createScenery() {
         const w = 5 + Math.random() * 15;
         const d = 5 + Math.random() * 15;
         const h = 0.5 + Math.random() * 4;
-        
+
         // Find a plausible y position by raycasting down, or just place them higher up
         const y = 15 + Math.random() * 30;
 

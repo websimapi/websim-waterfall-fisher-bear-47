@@ -143,8 +143,8 @@ function gameOver() {
 
     showGameOver();
     playSFX(sounds.splash);
-    activeFishes.forEach(f => scene.remove(f));
-    activeFishes = [];
+    
+    // Keep activeFishes around for the splash animation if needed, but they will be cleared on restart.
 
     setTimeout(() => {
         const goScreen = document.getElementById('game-over-screen');
@@ -152,9 +152,27 @@ function gameOver() {
             goScreen.classList.add('fade-out');
             const onFadeOut = () => {
                 goScreen.removeEventListener('animationend', onFadeOut);
+                
+                // Clean up game objects before going to start screen
+                if (bear) {
+                    scene.remove(bear);
+                    bear = null;
+                }
+                activeFishes.forEach(f => scene.remove(f));
+                activeFishes = [];
+
                 setupStartScreen();
             };
             goScreen.addEventListener('animationend', onFadeOut);
+        } else {
+             // Fallback if the screen is not there
+             if (bear) {
+                scene.remove(bear);
+                bear = null;
+            }
+            activeFishes.forEach(f => scene.remove(f));
+            activeFishes = [];
+            setupStartScreen();
         }
     }, 2000);
 }

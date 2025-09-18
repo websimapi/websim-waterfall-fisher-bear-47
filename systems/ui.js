@@ -1,3 +1,5 @@
+
+```javascript
 import { BEARS, FISH } from '../unlocks.js';
 
 let fadeTimeout;

@@ -1,3 +1,5 @@
+
+```javascript
 import * as THREE from 'three';
 import { BEAR_X_LIMIT, updateBear } from '../entities/bear.js';
 import { getOrbitControls, initOrbitControls } from '../scene.js';

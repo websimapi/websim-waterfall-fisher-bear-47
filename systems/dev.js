@@ -1,3 +1,5 @@
+
+```
 import * as THREE from 'three';
 
 function createAxisLabel(text, position, color = 'black', size = 64) {
@@ -83,4 +85,3 @@ export function resetDevTools(controls) {
         devHelperGroup.visible = false;
     }
 }
-
