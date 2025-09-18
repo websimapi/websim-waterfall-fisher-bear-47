@@ -20,7 +20,6 @@ function createVoxel(x, y, z, w, h, d, mat) {
 
 export function createBear(type = 'splashy') {
     const group = new THREE.Group();
-    group.name = 'bear';
 
     const bodyMat = type === 'grizzly' ? grizzlyMat : brownMat;
     const accentMat = type === 'grizzly' ? darkGrizzlyMat : darkBrownMat;

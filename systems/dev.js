@@ -83,4 +83,3 @@ export function resetDevTools(controls) {
         devHelperGroup.visible = false;
     }
 }
-

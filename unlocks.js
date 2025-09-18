@@ -1,3 +1,5 @@
+
+```
 export const BEARS = [
     { 
         id: 'splashy', 
